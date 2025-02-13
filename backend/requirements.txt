@@ -2,3 +2,7 @@ Flask
 Flask-Cors
 gunicorn
 requests
+python-dotenv
+Flask-SQLAlchemy
+mysqlclient
+mysql-connector-python

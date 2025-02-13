@@ -31,6 +31,8 @@ To set up the backend, follow these steps:
 
 3. **Install dependencies**:
    ```
+   sudo apt-get update
+   sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
    pip install -r requirements.txt
    ```
 

@@ -44,3 +44,9 @@ backend/app/__pycache__/routes.cpython-310.pyc
 .vscode
 frontend/public
 .angular
+
+Dockerfile.angular
+Dockerfile.flask
+docker-compose.yml
+
+setenv

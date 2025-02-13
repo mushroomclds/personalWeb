@@ -15,7 +15,7 @@ COPY frontend/ .
 RUN npx ng build --configuration production
 
 
-
+#######################################################
 # Stage 2: Set Up Flask Backend
 FROM python:3.10-slim AS build-backend
 WORKDIR /usr/local/app/backend
@@ -35,11 +35,13 @@ RUN . venv/bin/activate && \
     
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
+# Install MySQL server
+RUN apt-get update && apt-get install -y mysql-server
 
 # Copy the rest of the backend application files
 COPY backend/ .
 
-
+#######################################################
 # Stage 3: Serve with Nginx (Debian-based)
 FROM nginx:latest
 WORKDIR /usr/share/nginx/html
@@ -64,5 +66,5 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # RUN echo 'export VIRTUAL_ENV="/usr/local/app/backend/venv"' >> ~/.bashrc && \
 #     echo 'export PATH="$VIRTUAL_ENV/bin:$PATH"' >> ~/.bashrc
 
-# Start Gunicorn and Nginx and venv
-CMD ["sh", "-c", "source /usr/local/app/backend/venv/bin/activate && gunicorn --chdir /usr/local/app/backend app.main:app --bind 0.0.0.0:5000 & nginx -g 'daemon off;'"]
+# Initialize MySQL database and start MySQL, Gunicorn, and Nginx
+CMD ["sh", "-c", "service mysql start && mysql -e \"CREATE DATABASE IF NOT EXISTS personalweb;\" && source /usr/local/app/backend/venv/bin/activate && gunicorn --chdir /usr/local/app/backend app.main:app --bind 0.0.0.0:5000 & nginx -g 'daemon off;'"]
