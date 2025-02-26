@@ -1,4 +1,4 @@
-# Stage 1: Build Angular App with Node.js image(Debian-based)
+# Stage 1: Build Angular App with Node.js image (Debian-based)
 FROM node:18-bullseye-slim AS build-frontend
 WORKDIR /usr/local/app/frontend
 
@@ -13,7 +13,6 @@ COPY frontend/ .
 
 # Build the Angular app with production configuration
 RUN npx ng build --configuration production
-
 
 #######################################################
 # Stage 2: Set Up Flask Backend
@@ -55,7 +54,7 @@ COPY --from=build-backend /usr/local/app/backend /usr/local/app/backend
 # Copy the custom Nginx configuration file
 COPY frontend/default.conf /etc/nginx/conf.d/default.conf
 
-#update and install vim
+# Update and install vim and gunicorn
 RUN apt update && apt install -y vim && apt-get install -y gunicorn
 
 # Expose port 80 for web traffic

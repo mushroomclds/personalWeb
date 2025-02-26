@@ -50,3 +50,9 @@ Dockerfile.flask
 docker-compose.yml
 
 setenv
+
+.env
+app.log
+backend/app/__pycache__/
+personalWeb.sql
+backend/app/test.py

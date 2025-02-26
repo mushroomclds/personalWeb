@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api.service';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,6 +29,10 @@ import { CommonModule } from '@angular/common';
     <div *ngIf="postDataResponse">
       <p>Response: {{ postDataResponse | json }}</p>
     </div>
+    <button (click)="sendTestOracle()">Send Data Oracle Test</button>
+    <div *ngIf="postDataResponseOracle">
+      <p>Response: {{ postDataResponseOracle | json }}</p>
+    </div>
   </div>
   <router-outlet></router-outlet>
   <footer class="footer footer-center p-4 bg-base-300 text-base-content">
@@ -39,30 +44,33 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css'],
   providers:[ApiService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   title = 'personalWeb';
   message!: string;
   postDataResponse: any;
+  postDataResponseOracle: any;
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {
-    this.apiService.getData().subscribe(
-      data => {
-        this.message = data.message;
-      },
-      error => {
-        console.error('Error fetching data', error);
-      }
-    );
-  }
 
   sendData(): void {
     const data = { example: 'This is a test' };
     this.apiService.postData(data).subscribe(
       response => {
-        this.postDataResponse = response;
+        this.postDataResponse = response; // receives confirmation from the backend API
+      },
+      error => {
+        console.error('Error posting data', error);
+      }
+    );
+  }
+
+  sendTestOracle(): void {
+    const data = { example: 'testing oracle' };
+    this.apiService.postTestOracle(data).subscribe(
+      response => {
+        this.postDataResponseOracle = response; // receives confirmation from the backend API
       },
       error => {
         console.error('Error posting data', error);

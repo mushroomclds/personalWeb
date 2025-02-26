@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { AnimeHeroComponent } from '../anime-hero/anime-hero.component';
 import { ViewChild, ElementRef } from '@angular/core';
+import { FaveColorHeroComponent } from '../fave-color-hero/fave-color-hero.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [AnimeHeroComponent],
+  imports: [AnimeHeroComponent, FaveColorHeroComponent,],
   template: ` 
   <header class="hero min-h-screen bg-base-200 relative">
     <div class="hero-content text-center">
@@ -20,11 +21,15 @@ import { ViewChild, ElementRef } from '@angular/core';
       <i class="iconB fas fa-gamepad"></i>
       <i class="iconC fas fa-moon"></i>
     </div>
-  </header>
+  </header> <!-- WELCOME HERO -->
 
   <div #hero>
     <app-anime-hero></app-anime-hero>
-  </div>
+  </div> <!-- ANIME HERO -->
+
+  <div>
+    <app-fave-color-hero></app-fave-color-hero>
+  </div> <!-- FAVE COLOR HERO -->
 
   <div class="container mx-auto py-6">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -47,7 +52,7 @@ import { ViewChild, ElementRef } from '@angular/core';
         </div>
       </div>
     </div>
-  </div>
+  </div> <!-- ABOUT, PORTFOLIO, CONTACT -->
   `,
   styleUrls: ['./home.component.css']
 })
