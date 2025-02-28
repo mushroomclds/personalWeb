@@ -14,11 +14,10 @@ class OracleDB:
         self.user = os.getenv('DATABASE_USER')
         self.password = os.getenv('DATABASE_PASSWORD')
         self.dsn = os.getenv('DATABASE_DSN')  # Must match an entry in tnsnames.ora
-        # self.tns_admin = "/opt/oracle/instantclient_23_7"
-        self.tns_admin = os.getenv('TNS_ADMIN') # Set TNS_ADMIN for Oracle Wallet (if required)
-        logger.info(f"Loaded DATABASE_USER: {self.user} \n Loaded DATABASE_DSN: {self.dsn} \
-            \n Loaded TNS_ADMIN: {self.tns_admin}" )
-        logger.info(f"Loaded password: {self.password}")
+        self.tns_admin = "/opt/oracle/instantclient_23_7"
+        # self.tns_admin = os.getenv('TNS_ADMIN') # Set TNS_ADMIN for Oracle Wallet (if required)
+        # logger.info(f"Loaded DATABASE_USER: {self.user} \n Loaded DATABASE_DSN: {self.dsn} \
+        #     \n Loaded TNS_ADMIN: {self.tns_admin}" )
         if self.tns_admin:
             oracledb.init_oracle_client(lib_dir=self.tns_admin)
 
